@@ -2,14 +2,14 @@
 # The regression monitor defined here works OOB with this example regression notebook: https://learn.microsoft.com/azure/databricks/_extras/notebooks/source/monitoring/regression-monitor
 # NOTE: Monitoring only works on Unity Catalog tables.
 
-new_cluster: &new_cluster
-  new_cluster:
-    num_workers: 3
-    spark_version: 15.3.x-cpu-ml-scala2.12
-    node_type_id: Standard_D3_v2
-    data_security_mode: "SINGLE_USER"
-    custom_tags:
-      clusterSource: mlops-stacks_0.4
+# new_cluster: &new_cluster  # (Tmp Solved) #Error: cannot create job: Only serverless compute is supported in the workspace: Comment out new_cluster
+#   new_cluster:
+#     num_workers: 3
+#     spark_version: 15.3.x-cpu-ml-scala2.12
+#     node_type_id: Standard_D3_v2
+#     data_security_mode: "SINGLE_USER"
+#     custom_tags:
+#       clusterSource: mlops-stacks_0.4
 
 common_permissions: &permissions
   permissions:
@@ -39,7 +39,7 @@ resources:
       name: ${bundle.target}-my_mlops_project-monitoring-retraining-job
       tasks:
         - task_key: monitored_metric_violation_check
-          <<: *new_cluster
+          # <<: *new_cluster # (Tmp Solved) #Error: cannot create job: Only serverless compute is supported in the workspace: Comment out new_cluster
           notebook_task:
             notebook_path: ../monitoring/notebooks/MonitoredMetricViolationCheck.py
             base_parameters:

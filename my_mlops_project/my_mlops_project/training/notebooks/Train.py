@@ -27,7 +27,7 @@ notebook_path =  '/Workspace/' + os.path.dirname(dbutils.notebook.entry_point.ge
 
 # COMMAND ----------
 
-# MAGIC %pip install -r ../../requirements.txt
+# MAGIC %pip install -r ../../requirements.txt # (Info) This line will throw error if run on CE account, as serverless CE image is Python 3.12, but requirements.txt may required other versions. Therefore, we will use Trial account to create a cluster and use it instead of serverless.
 
 # COMMAND ----------
 

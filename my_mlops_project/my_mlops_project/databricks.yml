@@ -31,10 +31,11 @@ targets:
     mode: development
     default: true
     variables:
-      catalog_name: dev
+      catalog_name: dev # (Info) Create dev catalog in ws
     workspace:
       # TODO: add dev workspace URL
-      host:
+      host: https://dbc-4efeca7d-be91.cloud.databricks.com/
+      profile: dbc-4efeca7d-be91 # (Solved) Error: multiple profiles matched: Add profile
 
   staging:
     variables:

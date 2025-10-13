@@ -25,4 +25,4 @@ resources:
     experiment:
       name: ${var.experiment_name}
       <<: *permissions
-      description: MLflow Experiment used to track runs for my_mlops_project project.
+      # description: MLflow Experiment used to track runs for my_mlops_project project. # (Solved) Warning: unknown field: description: Comment out description.
