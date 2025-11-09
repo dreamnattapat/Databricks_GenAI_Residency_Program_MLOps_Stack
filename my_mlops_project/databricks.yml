@@ -53,3 +53,5 @@ targets:
       catalog_name: mlops_catalog_test_nattapat
     workspace:
       host: https://adb-xxxx.xx.azuredatabricks.net
+
+# test-ci
