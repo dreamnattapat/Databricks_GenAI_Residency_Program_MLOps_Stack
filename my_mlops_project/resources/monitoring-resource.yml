@@ -20,15 +20,15 @@ resources:
   quality_monitors:
     my_mlops_project_quality_monitor:
       table_name: mlops_catalog_dev_nattapat.mlops_schema.predictions
-      # TODO: Update the output schema name as per your requirements
-      output_schema_name: ${bundle.target}.mlops_schema
-      # TODO: Update the below parameters as per your requirements
+      # TODO: (Done) Update the output schema name as per your requirements
+      output_schema_name: mlops_catalog_dev_nattapat.mlops_schema # ${bundle.target}.mlops_schema will use the keyword from `databricks bundle deploy -t dev` which is incorrect as we renamed catalog name to mlops_catalog_dev_nattapat
+      # TODO: (Done) Update the below parameters as per your requirements
       assets_dir: /Users/${workspace.current_user.userName}/databricks_lakehouse_monitoring
       inference_log:
         granularities: [1 day]
         model_id_col: model_id
-        prediction_col: prediction
-        label_col: price
+        prediction_col: prediction 
+        label_col: fare_amount # (Info) no price available in predictions table; therefore, change to fare_amount instead.
         problem_type: PROBLEM_TYPE_REGRESSION
         timestamp_col: timestamp
       schedule:
@@ -45,13 +45,13 @@ resources:
             base_parameters:
               env: ${bundle.target}
               table_name_under_monitor: mlops_catalog_dev_nattapat.mlops_schema.predictions
-              # TODO: Update the metric to be monitored and violation threshold
-              metric_to_monitor: root_mean_squared_error
-              metric_violation_threshold: 100
-              num_evaluation_windows: 5
-              num_violation_windows: 2
+              # TODO: (Done) Update the metric to be monitored and violation threshold
+              metric_to_monitor: mean_absolute_error # (Original Code) root_mean_squared_error
+              metric_violation_threshold: 70 # (Original Code) 100 mean error > 100
+              num_evaluation_windows: 5 # (Info) 5 mean 5 periods (e.g, look back for 5 days)
+              num_violation_windows: 2 # (Info) 2 mean 2 violations
               # git source information of current ML resource deployment. It will be persisted as part of the workflow run
-              git_source_info: url:${bundle.git.origin_url}; branch:${bundle.git.branch}; commit:${bundle.git.commit}
+              # git_source_info: url:${bundle.git.origin_url}; branch:${bundle.git.branch}; commit:${bundle.git.commit} # (Info) datarbricks bundle validate shows unknown fields.
 
         - task_key: is_metric_violated
           depends_on:
@@ -60,7 +60,7 @@ resources:
             op: EQUAL_TO
             left: "{{tasks.monitored_metric_violation_check.values.is_metric_violated}}"
             right: "true"
-          git_source_info: url:${bundle.git.origin_url}; branch:${bundle.git.branch}; commit:${bundle.git.commit}
+          # git_source_info: url:${bundle.git.origin_url}; branch:${bundle.git.branch}; commit:${bundle.git.commit} # (Info) datarbricks bundle validate shows unknown fields.
 
         - task_key: trigger_retraining
           depends_on:
@@ -68,7 +68,7 @@ resources:
               outcome: "true"
           run_job_task:
             job_id: ${resources.jobs.model_training_job.id}
-            git_source_info: url:${bundle.git.origin_url}; branch:${bundle.git.branch}; commit:${bundle.git.commit}
+            # git_source_info: url:${bundle.git.origin_url}; branch:${bundle.git.branch}; commit:${bundle.git.commit} # (Info) datarbricks bundle validate shows unknown fields.
 
       schedule:
         quartz_cron_expression: "0 0 18 * * ?" # daily at 6pm
@@ -81,4 +81,3 @@ resources:
       #    on_failure:
       #      - first@company.com
       #      - second@company.com
-
