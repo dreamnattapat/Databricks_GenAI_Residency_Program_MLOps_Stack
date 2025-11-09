@@ -17,12 +17,12 @@ resources:
       model:
         name: ${var.model_name}
         catalog_name: ${var.catalog_name}
-        schema_name: my_mlops_project
-        comment: Registered model in Unity Catalog for the "my_mlops_project" ML Project for ${bundle.target} deployment target.
+        schema_name: mlops_schema
+        comment: Registered model in Unity Catalog for the "mlops_schema" ML Project for ${bundle.target} deployment target.
         <<: *grants
 
   experiments:
     experiment:
       name: ${var.experiment_name}
       <<: *permissions
-      # description: MLflow Experiment used to track runs for my_mlops_project project. # (Solved) Warning: unknown field: description: Comment out description.
+      # description: MLflow Experiment used to track runs for mlops_schema project. # (Solved) Warning: unknown field: description: Comment out description.
