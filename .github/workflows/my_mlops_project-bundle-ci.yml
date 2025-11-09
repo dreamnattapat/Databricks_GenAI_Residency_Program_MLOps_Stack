@@ -14,9 +14,9 @@ defaults:
     working-directory: ./my_mlops_project/
 
 env:
-  DEV_AZURE_HOST: ${{ secrets.DEV_AZURE_HOST }}
-  DEV_AZURE_SP_CLIENT_ID: ${{ secrets.DEV_AZURE_SP_CLIENT_ID}}
-  DEV_AZURE_SP_CLIENT_SECRET: ${{ secrets.DEV_AZURE_SP_CLIENT_SECRET }}
+  DATABRICKS_HOST: ${{ secrets.DEV_AZURE_HOST }}
+  DATABRICKS_CLIENT_ID: ${{ secrets.DEV_AZURE_SP_CLIENT_ID}}
+  DATABRICKS_CLIENT_SECRET: ${{ secrets.DEV_AZURE_SP_CLIENT_SECRET }}
   # STAGING_ARM_TENANT_ID: ${{ secrets.STAGING_AZURE_SP_TENANT_ID }}
   # STAGING_ARM_CLIENT_ID: ${{ secrets.STAGING_AZURE_SP_APPLICATION_ID }}
   # STAGING_ARM_CLIENT_SECRET: ${{ secrets.STAGING_AZURE_SP_CLIENT_SECRET }}
@@ -36,9 +36,9 @@ jobs:
       - name: Validate Bundle For Dev
         id: validate
         env:
-          DEV_AZURE_HOST: ${{ secrets.DEV_AZURE_HOST }}
-          DEV_AZURE_SP_CLIENT_ID: ${{ secrets.DEV_AZURE_SP_CLIENT_ID}}
-          DEV_AZURE_SP_CLIENT_SECRET: ${{ secrets.DEV_AZURE_SP_CLIENT_SECRET }}
+          DATABRICKS_HOST: ${{ secrets.DEV_AZURE_HOST }}
+          DATABRICKS_CLIENT_ID: ${{ secrets.DEV_AZURE_SP_CLIENT_ID}}
+          DATABRICKS_CLIENT_SECRET: ${{ secrets.DEV_AZURE_SP_CLIENT_SECRET }}
 
         run: |
           databricks bundle validate -t dev > ../validate_output.txt
