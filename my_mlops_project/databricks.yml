@@ -22,8 +22,8 @@ include:
   - ./resources/batch-inference-workflow-resource.yml
   - ./resources/ml-artifacts-resource.yml
   - ./resources/model-workflow-resource.yml
-  # TODO: uncomment once monitoring inference table has been created
-  # - ./resources/monitoring-resource.yml
+  # (Done) TODO: uncomment once monitoring inference table has been created
+  - ./resources/monitoring-resource.yml
 
 # Deployment Target specific values for workspace
 targets:
@@ -53,3 +53,5 @@ targets:
       catalog_name: mlops_catalog_test_nattapat
     workspace:
       host: https://adb-xxxx.xx.azuredatabricks.net
+
+# test/deploy-ci
