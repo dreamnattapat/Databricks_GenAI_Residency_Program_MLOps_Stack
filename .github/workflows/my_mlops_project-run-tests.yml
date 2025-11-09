@@ -11,9 +11,12 @@ defaults:
     working-directory: ./my_mlops_project/
 
 env:
-  ARM_TENANT_ID: ${{ secrets.STAGING_AZURE_SP_TENANT_ID }}
-  ARM_CLIENT_ID: ${{ secrets.STAGING_AZURE_SP_APPLICATION_ID }}
-  ARM_CLIENT_SECRET: ${{ secrets.STAGING_AZURE_SP_CLIENT_SECRET }}
+  DATABRICKS_HOST: ${{ secrets.DEV_AZURE_HOST }}
+  DATABRICKS_CLIENT_ID: ${{ secrets.DEV_AZURE_SP_CLIENT_ID}}
+  DATABRICKS_CLIENT_SECRET: ${{ secrets.DEV_AZURE_SP_CLIENT_SECRET }}
+  # ARM_TENANT_ID: ${{ secrets.STAGING_AZURE_SP_TENANT_ID }}
+  # ARM_CLIENT_ID: ${{ secrets.STAGING_AZURE_SP_APPLICATION_ID }}
+  # ARM_CLIENT_SECRET: ${{ secrets.STAGING_AZURE_SP_CLIENT_SECRET }}
   
 
 concurrency: my_mlops_project-training-integration-test-staging
