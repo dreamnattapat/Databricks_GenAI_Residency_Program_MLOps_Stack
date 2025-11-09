@@ -45,12 +45,18 @@ jobs:
       - name: Validate Bundle For Test Deployment Target in Staging Workspace
         id: validate
         run: |
-          databricks bundle validate -t test
+          databricks bundle validate -t dev
+        # # (Info) test against dev instead due to nattapat is not allowed to create a new workspace yet
+        # databricks bundle validate -t test
       - name: Deploy Bundle to Test Deployment Target in Staging Workspace
         id: deploy
         run: |
-          databricks bundle deploy -t test
+          databricks bundle deploy -t dev
+        # # (Info) test against dev instead due to nattapat is not allowed to create a new workspace yet
+        # databricks bundle deploy -t test
       - name: Run Training Workflow for Test Deployment Target in Staging Workspace
         id: training
         run: |
-          databricks bundle run model_training_job -t test
+          databricks bundle run model_training_job -t dev
+        # # (Info) test against dev instead due to nattapat is not allowed to create a new workspace yet
+        # databricks bundle run model_training_job -t test
